@@ -1,0 +1,12 @@
+server:       # 服务器配置
+  port: 9090
+spring:           # Spring配置  数据库配置
+  datasource:     # 数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver                  # 数据库驱动
+    url: jdbc:mysql://localhost:3306/vue?serverTimezone=GMT%2b8  # 数据库地址
+    username: root
+    password: zou123456
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
