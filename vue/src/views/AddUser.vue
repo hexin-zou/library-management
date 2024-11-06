@@ -87,6 +87,7 @@ export default {
             request.post('/user/save', this.form).then(res => {
               if (res.code === '200') {
                 this.$notify.success('新增成功')
+                this.$res['ruleFrom'].resetFields()
               } else {
                 this.$notify.error(res.msg)
               }
