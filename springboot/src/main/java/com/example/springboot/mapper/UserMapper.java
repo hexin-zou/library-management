@@ -1,9 +1,9 @@
 package com.example.springboot.mapper;
 
-import com.example.springboot.controller.request.UserPageRequest;
+import com.example.springboot.controller.request.BaseRequest;
+
 import com.example.springboot.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 
 @Mapper
@@ -12,7 +12,7 @@ public interface UserMapper {
     List<User> list();
 
     //返回一个 User 对象的列表
-    List<User> listByCondition(UserPageRequest userPageRequest);
+    List<User> listByCondition(BaseRequest baseRequest);
 
 
     void save(User user);
