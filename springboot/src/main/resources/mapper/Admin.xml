@@ -8,7 +8,7 @@
         values(#{username},#{password},#{phone},#{email})
     </insert>
     <update id="update">
-        update Admin
+        update admin
         <set>
             <if test="username != null and username != ''">
                 username = #{username},
@@ -26,17 +26,17 @@
         where id = #{id}
     </update>
     <delete id="deleteById">
-        delete from Admin where id = #{id}
+        delete from admin where id = #{id}
     </delete>
     <select id="list" resultType="com.example.springboot.entity.Admin">
-        select * from Admin order by id desc
+        select * from admin order by id desc
     </select>
 
     <select id="listByCondition" resultType="com.example.springboot.entity.Admin">
-        select * from Admin
+        select * from admin
         <where>
-            <if test="name != null and name != ''">
-                name like concat('%',#{ username },'%')
+            <if test="username != null and username != ''">
+                username like concat('%',#{ username },'%')
             </if>
             <if test="phone != null and phone != ''">
                 and phone like concat('%',#{ phone },'%')
@@ -48,7 +48,7 @@
         order by id desc
     </select>
     <select id="getById" resultType="com.example.springboot.entity.Admin">
-        select * from Admin where id = #{id}
+        select * from admin where id = #{id}
     </select>
 
 

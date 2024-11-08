@@ -45,10 +45,8 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public void save(Admin admin) {
-        Date date = new Date();
-        admin.setUsername(DateUtil.format(date,"yyyyMMdd") + Math.abs(IdUtil.fastSimpleUUID().hashCode()));
-        adminMapper.save(admin);
+    public void save(Admin obj) {
+        adminMapper.save(obj);
     }
 
     @Override
@@ -58,9 +56,9 @@ public class AdminService implements IAdminService {
 
     @Override
     public void update(Admin admin) {
-        Date date = new Date();
-        admin.setUsername(DateUtil.format(date,"yyyyMMdd") + Math.abs(IdUtil.fastSimpleUUID().hashCode()));
-        admin.setUpdatetime(new Date());
+//        Date date = new Date();
+//        admin.setUsername(DateUtil.format(date,"yyyyMMdd") + Math.abs(IdUtil.fastSimpleUUID().hashCode()));
+//        admin.setUpdatetime(new Date());
         adminMapper.update(admin);
     }
 

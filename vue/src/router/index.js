@@ -5,6 +5,8 @@ import HomeView from '../views/HomeView.vue'  //直接引入HomeView.vue，所�
 Vue.use(VueRouter)
 
 const routes = [
+
+    // ============================User=================================
   {
     path: '/',
     name: 'home',
@@ -16,25 +18,43 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/AboutView.vue')
   }
   ,
   {
     path: '/User',
     name: 'UserView',
-    component: () => import ('../views/User.vue')
+    component: () => import ('../views/user/User.vue')
   }
   ,
   {
     path: '/Add',
     name: 'AddUser',
-    component: () => import('../views/AddUser.vue')
+    component: () => import('../views/user/AddUser.vue')
+  }
+  ,
+  {
+    path: '/Editor',
+    name: 'EditUser',
+    component: () => import('../views/user/EditorUser.vue')
+  },
+  // =================Admin===========================
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import ('../views/admin/Admin.vue')
+  }
+  ,
+  {
+    path: '/addAdmin',
+    name: 'Add',
+    component: () => import('../views/admin/Add.vue')
   }
   ,
   {
     path: '/edit',
-    name: 'EditUser',
-    component: () => import('../views/EditorUser.vue')
+    name: 'Editor',
+    component: () => import('../views/admin/Editor.vue')
   }
 ]
 

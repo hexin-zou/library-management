@@ -11,12 +11,10 @@
     <!--stripe:隔行变色-->
     <el-table-column type="selection" width="60"></el-table-column>
     <el-table-column prop="id" label="编号"></el-table-column>
-    <el-table-column prop="name" label="名称"></el-table-column>
-    <el-table-column prop="username" label="会员卡号"></el-table-column>
+    <el-table-column prop="username" label="用户名"></el-table-column>
+    <el-table-column prop="email" label="邮箱"></el-table-column>
     <el-table-column prop="age" label="年龄"></el-table-column>
-    <el-table-column prop="address" label="地址"></el-table-column>
     <el-table-column prop="phone" label="联系方式"></el-table-column>
-    <el-table-column prop="sex" label="性别"></el-table-column>
     <el-table-column prop="createtime" label="创建时间"></el-table-column>
     <el-table-column prop="updatetime" label="更新时间"></el-table-column>
     <el-table-column fixed="right" label="操作" width="100">
@@ -59,7 +57,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: 'UserView',
+  name: 'Admin',
   data() {
     return {
       tableData: [],
@@ -77,7 +75,7 @@ export default {
   },
   methods: {
     load() {
-      request.get('/user/page', {
+      request.get('/admin/page', {
         params: this.params
       }).then(res => {
         this.tableData = res.data.list
@@ -99,7 +97,7 @@ export default {
       this.load()
     },
     del(id) {
-      request.delete('/user/delete/'+ id).then(res => {
+      request.delete('/admin/delete/'+ id).then(res => {
         if (res.code === '200') {
           this.$notify.success('再见')
           this.load()

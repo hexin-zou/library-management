@@ -16,7 +16,7 @@ public interface AdminMapper {
     List<Admin> listByCondition(BaseRequest baseRequest);
 
 
-    void save(Admin admin);
+    void save(Admin obj);
 
     Admin getById(Integer id);
 

@@ -17,7 +17,22 @@
                     <span slot="title">首页</span>
                   </el-menu-item>
 
-                  <el-submenu index="/">
+                  <el-submenu index="admin">
+                    <template slot="title">
+                      <i class="el-icon-more"></i>
+                      <span>管理员管理</span>
+                    </template>
+                    <el-menu-item index="/addAdmin">
+                      <i class="el-icon-tickets"></i>
+                      <span>管理员添加</span>
+                    </el-menu-item>
+                    <el-menu-item index="/admin">
+                      <i class="el-icon-tickets"></i>
+                      <span>管理员列表</span>
+                    </el-menu-item>
+                  </el-submenu>
+
+                  <el-submenu index="user">
                     <template slot="title">
                       <i class="el-icon-more"></i>
                       <span>会员管理</span>
