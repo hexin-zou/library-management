@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: lightgray;min-height: 100vh">
+  <div style="background-color: whitesmoke;min-height: 100vh">
 
   </div>
 </template>

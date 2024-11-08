@@ -48,7 +48,7 @@ export default {
     update() {
       request.put("/user/update", this.form).then(res => {
         if (res.code === '200') {
-          this.$notify.success("哎吆~你干嘛~~")
+          this.$notify.success("更新成功")
           this.$router.push("/user")
         } else {
           this.$notify.error(res.msg)

@@ -27,11 +27,11 @@
     <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope ="scope">
           <el-popconfirm
-              confirm-button-text='Yes'
-              cancel-button-text='No'
+              confirm-button-text='确定'
+              cancel-button-text=‘取消’
               icon="el-icon-info"
               icon-color="black"
-              title="Sure？"
+              title="确定删除？"
               @confirm="del(scope.row.id)"
           >
             <el-button round slot="reference">删除</el-button>
@@ -101,7 +101,7 @@ export default {
     del(id) {
       request.delete('/user/delete/'+ id).then(res => {
         if (res.code === '200') {
-          this.$notify.success('再见')
+          this.$notify.success('删除成功')
           this.load()
         } else {
           this.$notify.error(res.msg)

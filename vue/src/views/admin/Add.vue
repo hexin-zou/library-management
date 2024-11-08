@@ -13,8 +13,8 @@
       </el-form-item>
 
     </el-form>
-    <div style="text-align: center ;margin-top: 20px">
-      <el-button type="primary" @click="save">提交</el-button>
+    <div style="text-align: center ;margin-top: 30px">
+      <el-button type="info" @click="save">提交</el-button>
     </div>
   </div>
 </template>
@@ -26,57 +26,100 @@ import request from '@/utils/request'
 export default {
   name: 'Add',
   data() {
-    const check = (rules, value, callback) => {
-      if (!value) {
-        return callback(new Error('用户名不能为空'));
-      }
-      if (parseInt(value)>3||parseInt(value)<=15){
-        return callback(new Error('请输入合理的用户名'));
-      }
-      callback();
-      // setTimeout(() => {
-      //   if (!Number.isInteger(value)) {
-      //     callback(new Error('请输入数字值'));
-      //   }
-      // }, 0);
-    };
-    const checkPhone = (rules, value, callback) => {
-      if (!value) {
-        return callback(new Error('联系方式不能为空'));
-      }
+    const checkPhone = (rule, value, callback) => {
       if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
-        return callback(new Error('请输入合法的手机号'));
+        callback(new Error('请输入合法的手机号'));
       }
-      callback();
+      callback()
     };
     return {
+      form: {},
       rules: {
         username: [
-          {required: true, message: '请输入用户名', trigger: 'blur'}
+          { required: true, message: '请输入用户名', trigger: 'blur'},
+          { min: 3, max: 10, message: '长度在3-10个字符', trigger: 'blur'}
         ],
-
         phone: [
-          {validator: checkPhone, trigger: 'blur'}
+          { validator: checkPhone, trigger: 'blur' }
         ]
       }
     }
   },
-  methods:
-      {
-        save() {
-          this.$refs.ruleForm.validate((valid)=> {
-            request.post('/admin/save', this.form).then(res => {
-              if (res.code === '200') {
-                this.$notify.success('新增成功')
-                this.$res['ruleFrom'].resetFields()
-              } else {
-                this.$notify.error(res.msg)
-              }
+  methods: {
+    save() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          request.post('/admin/save', this.form).then(res => {
+            if (res.code === '200') {
+              this.$notify.success('新增成功')
               this.$router.push("/admin")
-            })
+              this.$refs['ruleForm'].resetFields()
+            } else {
+              this.$notify.error(res.msg)
+            }
           })
-
         }
-      }
+      })
+    }
+  }
 }
 </script>
+
+
+<!--data() {-->
+<!--const check = (rules, value, callback) => {-->
+<!--if (!value) {-->
+<!--return callback(new Error('用户名不能为空'));-->
+<!--}-->
+<!--if ( 1 <= value <= 15){-->
+<!--return callback(new Error('请输入合理的用户名'));-->
+<!--}-->
+<!--callback();-->
+<!--// setTimeout(() => {-->
+<!--//   if (!Number.isInteger(value)) {-->
+<!--//     callback(new Error('请输入数字值'));-->
+<!--//   }-->
+<!--// }, 0);-->
+<!--};-->
+<!--const checkPhone = (rules, value, callback) => {-->
+<!--if (!value) {-->
+<!--return callback(new Error('联系方式不能为空'));-->
+<!--}-->
+<!--if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {-->
+<!--return callback(new Error('请输入合法的手机号'));-->
+<!--}-->
+<!--callback();-->
+<!--};-->
+<!--return {-->
+<!--rules: {-->
+<!--username: [-->
+<!--{required: true, message: '请输入用户名', trigger: 'blur'}-->
+<!--],-->
+<!--age:-->
+<!--[-->
+<!--{validator: check, trigger: 'blur'}-->
+<!--],-->
+<!--phone: [-->
+<!--{validator: checkPhone, trigger: 'blur'}-->
+<!--]-->
+<!--}-->
+<!--}-->
+<!--},-->
+<!--methods:-->
+<!--{-->
+<!--save() {-->
+<!--this.$refs.ruleForm.validate((valid)=> {-->
+<!--request.post('/admin/save', this.form).then(res => {-->
+<!--if (res.code === '200') {-->
+<!--this.$notify.success('新增成功')-->
+<!--this.$refs['ruleFrom'].resetFields()-->
+<!--} else {-->
+<!--this.$notify.error(res.msg)-->
+<!--}-->
+<!--this.$router.push("/admin")-->
+<!--})-->
+<!--})-->
+
+<!--}-->
+<!--}-->
+<!--}-->

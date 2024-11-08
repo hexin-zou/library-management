@@ -1,7 +1,7 @@
 <template>
 <div>
   <div style="margin-bottom:20px;margin-top:5px;margin-left: 5px">
-    <el-input style="width:240px" placeholder="请输入名称" v-model="params.name"></el-input>
+    <el-input style="width:240px" placeholder="请输入名称" v-model="params.username"></el-input>
     <el-input style="width:240px; margin-left: 5px" placeholder="请输入联系方式" v-model="params.phone"></el-input>
     <el-button style="margin-left: 5px" type="info" @click="load"><i class=" el-icon-search"></i>搜索</el-button>
     <el-button style="margin-left: 5px" type="info"  @click="reset"><i class=" el-icon-refresh"></i>重置</el-button>
@@ -13,7 +13,6 @@
     <el-table-column prop="id" label="编号"></el-table-column>
     <el-table-column prop="username" label="用户名"></el-table-column>
     <el-table-column prop="email" label="邮箱"></el-table-column>
-    <el-table-column prop="age" label="年龄"></el-table-column>
     <el-table-column prop="phone" label="联系方式"></el-table-column>
     <el-table-column prop="createtime" label="创建时间"></el-table-column>
     <el-table-column prop="updatetime" label="更新时间"></el-table-column>
@@ -25,11 +24,11 @@
     <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope ="scope">
           <el-popconfirm
-              confirm-button-text='Yes'
-              cancel-button-text='No'
+              confirm-button-text='确定'
+              cancel-button-text='取消'
               icon="el-icon-info"
               icon-color="black"
-              title="Sure？"
+              title="确定删除？"
               @confirm="del(scope.row.id)"
           >
             <el-button round slot="reference">删除</el-button>
@@ -99,7 +98,7 @@ export default {
     del(id) {
       request.delete('/admin/delete/'+ id).then(res => {
         if (res.code === '200') {
-          this.$notify.success('再见')
+          this.$notify.success('删除成功')
           this.load()
         } else {
           this.$notify.error(res.msg)

@@ -23,7 +23,7 @@
       </el-form-item>
     </el-form>
     <div style="text-align: center ;margin-top: 20px">
-      <el-button type="primary" @click="save">提交</el-button>
+      <el-button type="info" @click="save">提交</el-button>
     </div>
   </div>
 </template>
@@ -35,67 +35,62 @@ import request from '@/utils/request'
 export default {
   name: 'AddUser',
   data() {
-    const checkAge = (rules, value, callback) => {
+    const checkAge = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('年龄不能为空'));
       }
-      if (!/^[0-9]+$/.test(value)){
-        return callback(new Error('请输入数字值'));
+      if (!/^[0-9]+$/.test(value)) {
+        callback(new Error('请输入数字值'));
       }
-      if (parseInt(value)>150||parseInt(value)<=0){
-        return callback(new Error('请输入合理的年龄'));
+      if (parseInt(value) > 120 || parseInt(value) <= 0) {
+        callback(new Error('请输入合理的年龄'));
       }
-      callback();
-      // setTimeout(() => {
-      //   if (!Number.isInteger(value)) {
-      //     callback(new Error('请输入数字值'));
-      //   }
-      // }, 0);
+      callback()
     };
-    const checkPhone = (rules, value, callback) => {
-      if (!value) {
-        return callback(new Error('联系方式不能为空'));
-      }
+    const checkPhone = (rule, value, callback) => {
       if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
-        return callback(new Error('请输入合的手机号'));
+        callback(new Error('请输入合法的手机号'));
       }
-      callback();
+      callback()
     };
     return {
-      form: {
-        sex: '男'
-      },
+      form: {sex: '男'},
       rules: {
         name: [
-          {required: true, message: '请输入姓名', trigger: 'blur'}
+          { required: true, message: '请输入姓名', trigger: 'blur'}
         ],
-        age:
-            [
-              {validator: checkAge, trigger: 'blur'}
-            ],
-
+        age: [
+          { validator: checkAge, trigger: 'blur' }
+        ],
         phone: [
-          {validator: checkPhone, trigger: 'blur'}
+          { validator: checkPhone, trigger: 'blur' }
         ]
       }
     }
   },
-  methods:
-      {
-        save() {
-          this.$refs.ruleForm.validate((valid)=> {
-            request.post('/user/save', this.form).then(res => {
-              if (res.code === '200') {
-                this.$notify.success('新增成功')
-                this.$res['ruleFrom'].resetFields()
-              } else {
-                this.$notify.error(res.msg)
-              }
-              this.$router.push("/user")
-            })
+  methods: {
+    save() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          request.post('/user/save', this.form).then(res => {
+            if (res.code === '200') {
+              this.$notify.success('新增成功')
+              this.$router.push("/User")
+              this.$refs['ruleForm'].resetFields()
+            } else {
+              this.$notify.error(res.msg)
+            }
           })
-
         }
-      }
+      })
+    }
+  }
 }
+
 </script>
+
+<!--// setTimeout(() => {-->
+<!--//   if (!Number.isInteger(value)) {-->
+<!--//     callback(new Error('请输入数字值'));-->
+<!--//   }-->
+<!--// }, 0);-->
