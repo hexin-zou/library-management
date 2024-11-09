@@ -1,8 +1,9 @@
 <template>
 <div>
   <div style="margin-bottom:20px;margin-top:5px;margin-left: 5px">
-    <el-input style="width:240px" placeholder="请输入名称" v-model="params.username"></el-input>
+    <el-input style="width:240px" placeholder="请输入用户名" v-model="params.username"></el-input>
     <el-input style="width:240px; margin-left: 5px" placeholder="请输入联系方式" v-model="params.phone"></el-input>
+    <el-input style="width:240px; margin-left: 5px" placeholder="请输入邮箱地址" v-model="params.email"></el-input>
     <el-button style="margin-left: 5px" type="info" @click="load"><i class=" el-icon-search"></i>搜索</el-button>
     <el-button style="margin-left: 5px" type="info"  @click="reset"><i class=" el-icon-refresh"></i>重置</el-button>
   </div>

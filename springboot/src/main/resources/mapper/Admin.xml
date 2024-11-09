@@ -7,6 +7,9 @@
         insert into Admin(username,password,phone,email)
         values(#{username},#{password},#{phone},#{email})
     </insert>
+    <select id="login" resultType="com.example.springboot.entity.Admin">
+        select * from admin where username = #{username} and password = #{password}
+    </select>
     <update id="update">
         update admin
         <set>

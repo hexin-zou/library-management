@@ -1,6 +1,8 @@
 package com.example.springboot.service;
 
+import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
+import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Admin;
 import com.github.pagehelper.PageInfo;
 
@@ -24,6 +26,8 @@ public interface IAdminService {
     void update(Admin admin);
 
     void deleteById(Integer id);
+
+    LoginDTO login(LoginRequest request);
 }
 
 

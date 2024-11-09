@@ -52,7 +52,7 @@ export default {
           request.post('/admin/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功')
-              this.$router.push("/admin")
+              this.$router.push("/adminlist")
               this.$refs['ruleForm'].resetFields()
             } else {
               this.$notify.error(res.msg)

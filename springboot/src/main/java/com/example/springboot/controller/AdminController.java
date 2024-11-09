@@ -1,7 +1,9 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
+import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
+import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,11 @@ public class AdminController {
 //    public List<admin> list() {
 //        return adminService.list();  // 调用 IUserService 接口实现类的 listUsers 方法，返回所有用户到前端
 //    }                  //这里返回的list列表未进行封装
+    @PostMapping("/login")
+    public Result login(@RequestBody LoginRequest request) {
+        LoginDTO loginDTO = adminService.login(request);
+        return Result.success(loginDTO);
+    }
     @GetMapping("/list")
     public Result list() { //Result表示返回的数据类型
         List<Admin> obj = adminService.list();

@@ -75,7 +75,7 @@ export default {
           request.post('/user/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功')
-              this.$router.push("/User")
+              this.$router.push("/userlist")
               this.$refs['ruleForm'].resetFields()
             } else {
               this.$notify.error(res.msg)
