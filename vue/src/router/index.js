@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Layout from '@/views/Layout.vue'
+import Login from '@/views/login/Login.vue'
 // import HomeView from '../views/home/HomeView.vue'  //直接引入HomeView.vue，所以这里导入它
-import HomeView from '../views/home/HomeView.vue'
-import Layout from '../views/Layout.vue'
 
 Vue.use(VueRouter)
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/Login.vue'),
+    component: Login,
   },
   //  ====== 主页  =====
   {
@@ -22,15 +22,13 @@ const routes = [
       {
         path: 'home',
         name: 'HomeView',
-        component: HomeView
+        component: ()=>import('../views/home/HomeView.vue')
       },
       {
         path: 'about',
         name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/user/AboutView.vue')
+
+        component: () => import('../views/user/AboutView.vue')
       }
       ,
       {
@@ -77,6 +75,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 export default router

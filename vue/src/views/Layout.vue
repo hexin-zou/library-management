@@ -2,8 +2,23 @@
   <div>
     <!--头部区域-->
     <div style="height:60px; line-height:60px;margin-top: 0; background-color:lightslategrey">
-      <img src="@/assets/logo.png" alt="" style="width:40px;position: relative;top:10px;left :20px;">
-      <span style="margin-left:25px;color:white"><strong><router-link to="/about" style="color:white">图书管理系统</router-link></strong></span>
+      <div>
+        <img src="@/assets/logo.png" alt="" style="width: 40px; position: relative; top: 10px; left: 20px">
+        <span style="margin-left:25px;color:white"><strong>图书管理系统</strong></span>
+      </div>
+      <div style="flex: 1; text-align: right; padding-right: 20px">
+        <el-dropdown size="medium">
+          <span class="el-dropdown-link">
+            管理员<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown" style="margin-top: -5px">
+            <el-dropdown-item>
+              <div style="width: 50px; text-align: center;" @click="logout">退出</div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+
     </div>
 
     <!--    侧边栏和主体-->
@@ -98,10 +113,23 @@ export default {
     handleCurrentChange(pageNum) {
       this.params.pageNum = pageNum
       this.load()
+    },
+    logout() {
+      this.$router.push('/login')
     }
   }
 }
 </script>
+
+
+
+
+
+
+
+
+
+
 
 
 

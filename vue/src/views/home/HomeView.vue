@@ -1,6 +1,8 @@
 <template>
   <div>
-    主页
+    <div>
+      <el-button type="primary">按钮</el-button>
+    </div>
   </div>
 </template>
 
