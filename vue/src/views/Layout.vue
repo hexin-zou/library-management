@@ -9,7 +9,7 @@
       <div style="flex: 1; text-align: right; padding-right: 20px">
         <el-dropdown size="medium">
           <span class="el-dropdown-link">
-            管理员<i class="el-icon-arrow-down el-icon--right"></i>
+            {{ admin.username }}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" style="margin-top: -5px">
             <el-dropdown-item>
@@ -74,11 +74,13 @@
 
 <script>
 import request from "@/utils/request";
+import Cookies from "js-cookie";
 
 export default {
   name: 'Layout',
   data() {
     return {
+      admin: Cookies.get('admin')? JSON.parse(Cookies.get('admin')) : {},
       tableData: [],
       total: 0,
       params: {
@@ -115,6 +117,7 @@ export default {
       this.load()
     },
     logout() {
+      Cookies.remove('admin')
       this.$router.push('/login')
     }
   }
