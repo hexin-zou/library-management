@@ -18,7 +18,7 @@ export default {
     }
   },
   created() {
-    request.get('/admin/' + list.admin.id).then(res => {
+    request.get('/admin/' + this.admin.id).then(res => {
       this.admin = res.data
     })
   }

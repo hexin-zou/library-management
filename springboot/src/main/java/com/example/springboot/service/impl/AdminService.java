@@ -1,5 +1,7 @@
 package com.example.springboot.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.controller.request.LoginRequest;
@@ -23,11 +25,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService implements IAdminService {
 
+
     /**
      * 自动装配
      */
     private final AdminMapper adminMapper;
     private final UserMapper userMapper;
+
+    public static final String DEFAULT_PASS = "123";
+    public static final String PASS_SALT = "qingge";
 
     /**
      * 查询所有用户
@@ -49,6 +55,10 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
+        if(StrUtil.isBlank(obj.getPassword())) {
+            obj.setPassword(DEFAULT_PASS);
+        }
+        obj.setPassword(securePass(obj.getPassword()));  //设置md5加密，加严
         adminMapper.save(obj);
     }
 
@@ -69,6 +79,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request) {
+        request.setPassword(securePass(request.getPassword()));
         Admin admin = adminMapper.login(request);
         if(admin == null) {
             throw new ServiceException("用户名或密码错误");
@@ -76,6 +87,9 @@ public class AdminService implements IAdminService {
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
         return loginDTO;
+    }
+    private String securePass(String password) {
+        return SecureUtil.md5(password+PASS_SALT);
     }
 
 }
