@@ -58,7 +58,7 @@ public class AdminService implements IAdminService {
         if(StrUtil.isBlank(obj.getPassword())) {
             obj.setPassword(DEFAULT_PASS);
         }
-        obj.setPassword(securePass(obj.getPassword()));  //设置md5加密，加严
+        obj.setPassword(securePass(obj.getPassword()));  //设置md5加密，加盐
         adminMapper.save(obj);
     }
 
