@@ -18,9 +18,16 @@ export default {
     }
   },
   created() {
-    request.get('/admin/' + this.admin.id).then(res => {
-      this.admin = res.data
-    })
+    if (!this.admin) {
+      this.load()
+    }
+  },
+  methods: {
+    load() {
+      request.get('/admin/' + this.admin.id).then(res => {
+        this.admin = res.data
+      })
+    },
   }
 }
 </script>
