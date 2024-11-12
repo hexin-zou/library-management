@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="item">用户名: {{admin.username}}</div>
-    <div class="item">手机号: {{admin.phone}}</div>
-    <div class="item">邮箱地址: {{admin.email}}</div>
+  <div style="margin-left: 5px">
+    <div class="item"> 用户名: {{admin.username}}</div>
+    <div class="item"> 手机号: {{admin.phone}}</div>
+    <div class="item"> 邮箱地址: {{admin.email}}</div>
   </div>
 </template>
 
@@ -16,19 +16,19 @@ export default {
     return {
       admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {}
     }
-  },
-  created() {
-    if (!this.admin) {
-      this.load()
-    }
-  },
-  methods: {
-    load() {
-      request.get('/admin/' + this.admin.id).then(res => {
-        this.admin = res.data
-      })
-    },
   }
+  // created() {
+  //   if (!this.admin) {
+  //     this.load()
+  //   }
+  // },
+  // methods: {
+  //   load() {
+  //     request.get('/admin/' + this.admin.id).then(res => {
+  //       this.admin = res.data
+  //     })
+  //   },
+  // }
 }
 </script>
 <style>

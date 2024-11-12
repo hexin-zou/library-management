@@ -12,19 +12,16 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
     const user = Cookies.get('admin');
-    // if(!user) {
-    //     router.push('/login')
+    // if (!user) {
+    //     // 检查当前路由是否已经是登录页面
+    //     if (router.currentRoute.path !== '/login') {
+    //         router.push('/login');
+    //         // return Promise.reject(new Error('No user information')); // 阻止请求继续发送
+    //     } else {
+    //         config.headers['Authorization'] = user;
+    //     }
     // }
-    if (!user) {
-        // 检查当前路由是否已经是登录页面
-        if (router.currentRoute.path !== '/login') {
-            router.push('/login');
-            // return Promise.reject(new Error('No user information')); // 阻止请求继续发送
-        } else {
-            config.headers['Authorization'] = user;
-        }
-    }
-    // config.headers['Authorization'] = user;
+    config.headers['Authorization'] = user;
     return config;
 }, error => {
     return Promise.reject(error);
