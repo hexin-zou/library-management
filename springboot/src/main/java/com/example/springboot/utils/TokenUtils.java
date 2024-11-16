@@ -24,7 +24,7 @@ import java.util.Date;
 public class TokenUtils {
 
     private static IAdminService staticAdminService;
-    private static final String SECRET_KEY = "your-secret-key";
+    private static final String SECRET_KEY = "zou123456";
 //                                               替换为实际的签名密钥
 
     @Resource
