@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/library-management.iml" filepath="$PROJECT_DIR$/library-management.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vue/vue.iml" filepath="$PROJECT_DIR$/vue/vue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/library-management.iml" filepath="$PROJECT_DIR$/.idea/library-management.iml" />
     </modules>
   </component>
 </project>

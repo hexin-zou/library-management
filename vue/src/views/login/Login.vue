@@ -42,9 +42,9 @@ export default {
           request.post('/admin/login', this.admin).then(res => {
             if (res.code === '200') {
               this.$notify.success("登录成功")
-              if(res.data !== null) {
+
                 Cookies.set('admin',JSON.stringify(res.data))  //将后台返回的JSON对象转成字符串存到cookie中
-              }
+
               this.$router.push('/')
             } else {
               this.$notify.error(res.msg)
