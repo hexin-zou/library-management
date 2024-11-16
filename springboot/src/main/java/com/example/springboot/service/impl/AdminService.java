@@ -8,7 +8,6 @@ import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AdminMapper;
-import com.example.springboot.mapper.UserMapper;
 import com.example.springboot.service.IAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,7 +29,6 @@ public class AdminService implements IAdminService {
      * 自动装配
      */
     private final AdminMapper adminMapper;
-    private final UserMapper userMapper;
 
     public static final String DEFAULT_PASS = "123";
     public static final String PASS_SALT = "qingge";

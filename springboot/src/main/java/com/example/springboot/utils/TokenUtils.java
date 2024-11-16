@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.service.IAdminService;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -72,12 +71,7 @@ public class TokenUtils {
                 log.error("获取当前登录的token失败， token: {}", token);
                 return null;
             }
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(SECRET_KEY.getBytes())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-            String adminId = claims.getSubject();
+            String adminId = Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token).getBody().getSubject();
             return staticAdminService.getById(Integer.parseInt(adminId));
         } catch (Exception e) {
             log.error("获取当前登录的管理员信息失败, token={}", token, e);
