@@ -11,10 +11,11 @@ const request = axios.create({
 // request 拦截器
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-   const adminJson = Cookies.get('admin')
+    const adminJson = Cookies.get('admin')
     if (adminJson) {
         // 设置请求头
         config.headers['token'] = JSON.parse(adminJson).token
+        console.log('token',config.headers['token'])
     }
     return config;
 }, error => {
