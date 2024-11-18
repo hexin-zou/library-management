@@ -2,10 +2,10 @@ package com.example.springboot.utils;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.service.IAdminService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -25,14 +25,13 @@ import java.util.Date;
 public class TokenUtils {
 
     private static IAdminService staticAdminService;
-    private static final String SECRET_KEY = "zou123456";
-//                                               替换为实际的签名密钥
+    //  替换为实际的签名密钥
 
     @Resource
     private IAdminService adminService;
 
     @PostConstruct
-    public void setUserService() {
+    public void setUserService()   {
         staticAdminService = adminService;
     }
 
@@ -44,15 +43,13 @@ public class TokenUtils {
      * @return 生成的token
      */
     public static String genToken(String adminId, String sign) {
-        Date now = new Date();
-        Date expireTime = DateUtil.offsetHour(now, 2);
 //        2小时后过期
-        return Jwts.builder()
-                .setSubject(adminId)
-                .setIssuedAt(now)
-                .setExpiration(expireTime)
-                .signWith(SignatureAlgorithm.HS256, sign.getBytes())
-                .compact();
+    return JWT.create().withAudience(adminId)
+            // 将 user id 保存到 token 里面,作为载荷
+                .withExpiresAt(DateUtil.offsetDay(new Date(), 2))
+            // 2小时后token过期
+                .sign(Algorithm.HMAC256(sign));
+    // 以 password 作为 token 的密钥
     }
 
     /**
@@ -72,7 +69,7 @@ public class TokenUtils {
                 log.error("获取当前登录的token失败， token: {}", token);
                 return null;
             }
-            String adminId = Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token).getBody().getSubject();
+            String adminId = JWT.decode(token).getAudience().get(0);
             return staticAdminService.getById(Integer.parseInt(adminId));
         } catch (Exception e) {
             log.error("获取当前登录的管理员信息失败, token={}", token, e);

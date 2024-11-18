@@ -9,6 +9,7 @@ import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AdminMapper;
 import com.example.springboot.service.IAdminService;
+import com.example.springboot.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        if(StrUtil.isBlank(obj.getPassword())) {
+        if (StrUtil.isBlank(obj.getPassword())) {
             obj.setPassword(DEFAULT_PASS);
         }
         obj.setPassword(securePass(obj.getPassword()));
@@ -80,15 +81,20 @@ public class AdminService implements IAdminService {
     public LoginDTO login(LoginRequest request) {
         request.setPassword(securePass(request.getPassword()));
         Admin admin = adminMapper.login(request);
-        if(admin == null) {
+        if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
+
+        String token = TokenUtils.genToken(String.valueOf(admin.getId()), admin.getPassword());
+        loginDTO.setToken(token);
+
         return loginDTO;
     }
+
     private String securePass(String password) {
-        return SecureUtil.md5(password+PASS_SALT);
+        return SecureUtil.md5(password + PASS_SALT);
     }
 
 }
