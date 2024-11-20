@@ -5,6 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.PasswordRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AdminMapper;
@@ -80,7 +81,7 @@ public class AdminService implements IAdminService {
     @Override
     public LoginDTO login(LoginRequest request) {
         request.setPassword(securePass(request.getPassword()));
-        Admin admin = adminMapper.login(request);
+        Admin admin = adminMapper.getByUsernameAndPassword(request);
         if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
@@ -91,6 +92,16 @@ public class AdminService implements IAdminService {
         loginDTO.setToken(token);
 
         return loginDTO;
+    }
+
+    @Override
+    public void changePass(PasswordRequest request) {
+        // 注意 你要对新的密码进行加密
+        request.setNewPass(securePass(request.getNewPass()));
+        int count = adminMapper.updatePassword(request);
+        if (count <= 0) {
+            throw new ServiceException("修改密码失败");
+        }
     }
 
     private String securePass(String password) {

@@ -4,6 +4,7 @@ import com.example.springboot.common.Result;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.PasswordRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,13 @@ public class AdminController {
         LoginDTO loginDTO = adminService.login(request);
         return Result.success(loginDTO);
     }
+
+    @PutMapping("/password")
+    public Result password(@RequestBody PasswordRequest request) {
+        adminService.changePass(request);
+        return Result.success();
+    }
+
     @GetMapping("/list")
     public Result list() { //Result表示返回的数据类型
         List<Admin> obj = adminService.list();

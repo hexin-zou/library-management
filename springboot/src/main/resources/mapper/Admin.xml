@@ -3,13 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springboot.mapper.AdminMapper">
+
     <insert id="save">
         insert into Admin(username,password,phone,email)
         values(#{username},#{password},#{phone},#{email})
     </insert>
-    <select id="login" resultType="com.example.springboot.entity.Admin">
+    <select id="getByUsernameAndPassword" resultType="com.example.springboot.entity.Admin">
         select * from admin where username = #{username} and password = #{password}
     </select>
+  <update id="updatePassword">
+        update admin set password = #{newPass} where username = #{username} and password = #{password}
+    </update>
     <update id="update">
         update admin
         <set>
