@@ -1,5 +1,21 @@
 <template>
   <div style="width: 500px; height: 400px; background-color: white; border-radius: 10px; margin: 150px auto; padding:50px">
+    <el-card class="cover" v-if="loginAdmin.id">
+      <slide-verify :l="42"
+                    :r="10"
+                    :w="310"
+                    :h="155"
+                    :accuracy="5"
+                    :imgs="['https://cdn.pixabay.com/photo/2022/11/09/12/23/lotus-7580478_960_720.jpg',
+                    'https://cdn.pixabay.com/photo/2017/08/29/12/07/adult-2693054_960_720.jpg',
+                    'https://cdn.pixabay.com/photo/2022/11/16/15/52/mushrooms-7596258_960_720.jpg']"
+                    slider-text="向右滑动"
+                    @success="onSuccess"
+                    @fail="onFail"
+                    @refresh="onRefresh"
+      ></slide-verify>
+    </el-card>
+
     <div style="margin: 30px; text-align: center; font-size: 30px; font-weight: bold; color: darkslategrey">登录</div>
     <el-form :model="admin" :rules="rules" ref="loginForm" style="margin-right:70px" label-width="80px">
       <el-form-item prop="username">
@@ -21,8 +37,14 @@ import Cookies from "js-cookie";
 
 export default {
   name: 'Login',
+  computed: {
+    loginAdmin() {
+      return loginAdmin
+    }
+  },
   data() {
     return {
+      loginAdmin: {},
       admin: {},
       rules: {
         username: [
@@ -41,19 +63,37 @@ export default {
         if (valid) {
           request.post('/admin/login', this.admin).then(res => {
             if (res.code === '200') {
-              this.$notify.success("登录成功")
-
-                Cookies.set('admin',JSON.stringify(res.data))  //将后台返回的JSON对象转成字符串存到cookie中
-
-              this.$router.push('/')
+              this.loginAdmin = res.data  // 滑块组件就出现了
             } else {
               this.$notify.error(res.msg)
             }
           })
         }
       })
+    },
+    onSuccess() { // 滑块验证通过之后触发的
+      Cookies.set('admin', JSON.stringify(this.loginAdmin))
+      this.$notify.success("登录成功")
+      this.$router.push('/')
+    },
+    onFail() {
+      console.log('onFail')
+    },
+    onRefresh() {
+      console.log('refresh')
     }
   }
 }
 
 </script>
+<style scoped>
+.cover {
+  width: fit-content;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+</style>

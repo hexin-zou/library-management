@@ -85,6 +85,9 @@ public class AdminService implements IAdminService {
         if (admin == null) {
             throw new ServiceException("用户名或密码错误");
         }
+        if (!admin.isStatus()) {
+            throw new ServiceException("用户被禁用");
+        }
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
 

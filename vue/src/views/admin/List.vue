@@ -17,6 +17,16 @@
       <el-table-column prop="phone" label="联系方式"></el-table-column>
       <el-table-column prop="createtime" label="创建时间"></el-table-column>
       <el-table-column prop="updatetime" label="更新时间"></el-table-column>
+      <el-table-column label="状态">
+        <template v-slot="scope">
+          <el-switch
+              v-model="scope.row.status"
+              @change="changeStatus(scope.row)"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+          </el-switch>
+        </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button round type="info" @click="$router.push('/edit?id=' + scope.row.id)">编辑</el-button>
@@ -38,7 +48,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button round type="warning" @click="handleChangePass">修改密码</el-button>
+          <el-button round type="warning" @click="handleChangePass(scope.row)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -77,11 +87,13 @@
 <script>
 
 import request from "@/utils/request";
+import Cookies from "js-cookie";
 
 export default {
   name: 'Admin',
   data() {
     return {
+      admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
       form: {},
       dialogFormVisible: false,
       tableData: [],
@@ -107,6 +119,13 @@ export default {
     handleChangePass(row) {
       this.form = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
+    },
+    changeStatus(row) {
+      if (this.admin.id === row.id && !row.status) {
+        row.status = true
+        this.$notify.warning('您的操作不合法')
+        return
+      }
     },
     savePass() {
       this.$refs['formRef'].validate((valid) => {

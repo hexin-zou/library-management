@@ -16,5 +16,6 @@ public class Admin {
     private Date createtime;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updatetime;
+    private boolean status;
 }
 //User是一个实体类，用于代表数据库中的数据模型

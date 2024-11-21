@@ -117,8 +117,9 @@ export default {
       this.load()
     },
     logout() {
-      Cookies.remove('admin')
       this.$router.push('/login')
+      Cookies.remove('admin')
+
     }
   }
 }
