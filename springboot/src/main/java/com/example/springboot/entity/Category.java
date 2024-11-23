@@ -4,21 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
-/**
- * @author zou17
- */
 @Data
-public class Admin {
+public class Category {
     private Integer id;
-    private String username;
-    private String phone;
-    private String email;
-    private String password;
+    private String name;
+    private String remark;
+    private Integer pid;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createtime;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updatetime;
-    private boolean status;
+
+    private List<Category> children;
 }
-//User是一个实体类，用于代表数据库中的数据模型

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-left: 5px">
+  <div style="margin-left: 10px;font-size: 15px">
     <div class="item"> 用户名: {{admin.username}}</div>
     <div class="item"> 手机号: {{admin.phone}}</div>
     <div class="item"> 邮箱地址: {{admin.email}}</div>

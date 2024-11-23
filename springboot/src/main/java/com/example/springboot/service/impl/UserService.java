@@ -1,5 +1,7 @@
 package com.example.springboot.service.impl;
 
+import com.example.springboot.entity.Admin;
+import com.example.springboot.exception.ServiceException;
 import com.github.pagehelper.PageInfo;
 import java.util.Date;
 import cn.hutool.core.date.DateUtil;
@@ -46,6 +48,11 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
+        User existingUser = userMapper.getByUsername(user.getUsername());
+        if (existingUser != null && existingUser.getUsername().equals(user.getUsername())) {
+            throw new ServiceException("用户名已存在");
+        }
+        user.setStatus(true);
         Date date = new Date();
         user.setUsername(DateUtil.format(date,"yyyyMMdd") + Math.abs(IdUtil.fastSimpleUUID().hashCode()));
         userMapper.save(user);

@@ -2,7 +2,7 @@
   <div style="padding: 20px">
     <div style="font-size: 30px;margin-bottom: 20px">新增管理员</div>
     <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" style="width:80% ; margin-left: 100px;margin-top: 20px">
-      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px">
+      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px" prop="username">
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="联系方式" style="margin-left: 100px;margin-top: 20px" prop="phone">
@@ -52,7 +52,7 @@ export default {
           request.post('/admin/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功')
-              this.$router.push("/adminlist")
+              // this.$router.push("/adminlist")
               this.$refs['ruleForm'].resetFields()
             } else {
               this.$notify.error(res.msg)

@@ -22,5 +22,7 @@ public interface UserMapper {
     void update(User user);
 
     void deleteById(Integer id);
+
+    User getByUsername(String username);
 }
 //这个接口用于定义数据库操作，即查询所有用户的方法。

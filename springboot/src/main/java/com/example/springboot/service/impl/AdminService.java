@@ -14,14 +14,18 @@ import com.example.springboot.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author zou17
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminService implements IAdminService {
@@ -55,6 +59,12 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
+        Admin existingAdmin = adminMapper.getByUsername(obj.getUsername());
+        if (existingAdmin != null && existingAdmin.getUsername().equals(obj.getUsername())) {
+            log.error("用户名已存在");
+            throw new ServiceException("用户名已存在");
+        }
+        obj.setStatus(true);
         if (StrUtil.isBlank(obj.getPassword())) {
             obj.setPassword(DEFAULT_PASS);
         }
@@ -70,6 +80,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public void update(Admin admin) {
+        admin.setUpdatetime(new Date());
         adminMapper.update(admin);
     }
 
@@ -80,9 +91,18 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request) {
-        request.setPassword(securePass(request.getPassword()));
-        Admin admin = adminMapper.getByUsernameAndPassword(request);
+        Admin admin = null;
+        try {
+            admin = adminMapper.getByUsername(request.getUsername());
+        } catch (Exception e) {
+            log.error("根据用户名{} 查询出错", request.getUsername());
+            throw new ServiceException("用户名错误");
+        }
         if (admin == null) {
+            throw new ServiceException("用户名或密码错误");
+        }
+        request.setPassword(securePass(request.getPassword()));
+        if (!admin.getPassword().equals(request.getPassword())) {
             throw new ServiceException("用户名或密码错误");
         }
         if (!admin.isStatus()) {
@@ -91,7 +111,7 @@ public class AdminService implements IAdminService {
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
 
-        String token = TokenUtils.genToken(String.valueOf(admin.getId()), admin.getPassword());
+        String token = TokenUtils.genToken(String.valueOf(admin.getId()), admin.getPassword(), 2);
         loginDTO.setToken(token);
 
         return loginDTO;

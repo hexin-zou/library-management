@@ -11,7 +11,7 @@
     <el-table :data="tableData" stripe style="margin-top:0">
       <!--stripe:隔行变色-->
       <el-table-column type="selection" width="60"></el-table-column>
-      <el-table-column prop="id" label="编号"></el-table-column>
+<!--      <el-table-column prop="id" label="编号"></el-table-column>-->
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="email" label="邮箱"></el-table-column>
       <el-table-column prop="phone" label="联系方式"></el-table-column>
@@ -126,6 +126,13 @@ export default {
         this.$notify.warning('您的操作不合法')
         return
       }
+      request.put('/admin/update', row).then(res => {
+        if (res.code === '200') {
+          this.$notify.success("操作成功")
+        } else {
+          this.$notify.error(res.msg)
+        }
+      })
     },
     savePass() {
       this.$refs['formRef'].validate((valid) => {

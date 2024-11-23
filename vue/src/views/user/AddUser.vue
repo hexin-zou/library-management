@@ -5,7 +5,7 @@
       <el-form-item label="姓名" style="margin-left: 100px;margin-top: 20px" prop="name">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
       </el-form-item>
-      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px">
+      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px" prop="username">
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="年龄" style="margin-left: 100px;margin-top: 20px" prop="age">
@@ -18,7 +18,7 @@
       <el-form-item label="联系方式" style="margin-left: 100px;margin-top: 20px" prop="phone">
         <el-input v-model="form.phone" placeholder="请输入联系方式"></el-input>
       </el-form-item>
-      <el-form-item label="地址" style="margin-left: 100px ;margin-top: 20px">
+      <el-form-item label="地址" style="margin-left: 100px ;margin-top: 20px" prop="address">
         <el-input v-model="form.address" placeholder="请输入地址"></el-input>
       </el-form-item>
     </el-form>
@@ -54,7 +54,7 @@ export default {
       callback()
     };
     return {
-      form: {sex: '男'},
+      form: {},
       rules: {
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur'}
@@ -75,7 +75,7 @@ export default {
           request.post('/user/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功')
-              this.$router.push("/userlist")
+              // this.$router.push("/userlist")
               this.$refs['ruleForm'].resetFields()
             } else {
               this.$notify.error(res.msg)

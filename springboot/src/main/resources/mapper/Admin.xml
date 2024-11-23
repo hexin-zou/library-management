@@ -5,8 +5,8 @@
 <mapper namespace="com.example.springboot.mapper.AdminMapper">
 
     <insert id="save">
-        insert into Admin(username,password,phone,email)
-        values(#{username},#{password},#{phone},#{email})
+        insert into Admin(username,password,phone,email,status)
+        values(#{username},#{password},#{phone},#{email},#{status})
     </insert>
     <select id="getByUsernameAndPassword" resultType="com.example.springboot.entity.Admin">
         select * from admin where username = #{username} and password = #{password}
@@ -26,7 +26,7 @@
             <if test="email != null and email != ''">
                 email = #{email},
             </if>
-            <if test="updatetime != null">
+            <if test="updatetime != null ">
                 updatetime = #{updatetime},
             </if>
             <if test="status != null">
@@ -59,6 +59,9 @@
     </select>
     <select id="getById" resultType="com.example.springboot.entity.Admin">
         select * from admin where id = #{id}
+    </select>
+    <select id="getByUsername" resultType="com.example.springboot.entity.Admin">
+        select * from admin where username = #{username}
     </select>
 
 

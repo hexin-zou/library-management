@@ -3,22 +3,26 @@ package com.example.springboot.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
-/**
- * @author zou17
- */
 @Data
-public class Admin {
+public class BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
-    private String username;
-    private String phone;
-    private String email;
-    private String password;
+
+    /**
+     * 创建时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createtime;
+
+    /**
+     * 更新时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updatetime;
-    private boolean status;
+
 }
-//User是一个实体类，用于代表数据库中的数据模型

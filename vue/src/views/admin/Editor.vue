@@ -5,11 +5,11 @@
       <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px">
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱" style="margin-left: 100px;margin-top: 20px">
-        <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
-      </el-form-item>
       <el-form-item label="联系方式" style="margin-left: 100px;margin-top: 20px">
         <el-input v-model="form.phone" placeholder="请输入联系方式"></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱" style="margin-left: 100px;margin-top: 20px">
+        <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
       </el-form-item>
     </el-form>
     <div style="text-align: center ;margin-top: 30px">

@@ -15,7 +15,7 @@ request.interceptors.request.use(config => {
     if (adminJson) {
         // 设置请求头
         config.headers['token'] = JSON.parse(adminJson).token
-        console.log('token',config.headers['token'])
+        // console.log('token',config.headers['token'])
     }
     return config;
 }, error => {

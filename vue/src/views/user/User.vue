@@ -10,7 +10,7 @@
     <el-table :data="tableData" stripe style="margin-top:0">
       <!--stripe:隔行变色-->
       <el-table-column type="selection" width="60"></el-table-column>
-      <el-table-column prop="id" label="编号"></el-table-column>
+<!--      <el-table-column prop="id" label="编号"></el-table-column>-->
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column prop="username" label="会员卡号"></el-table-column>
       <el-table-column prop="age" label="年龄"></el-table-column>

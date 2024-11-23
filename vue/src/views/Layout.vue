@@ -61,6 +61,23 @@
               <span>会员列表</span>
             </el-menu-item>
           </el-submenu>
+          <!--      图书分类管理      -->
+          <el-submenu index="category">
+            <template slot="title">
+              <i class="el-icon-s-operation"></i>
+              <span>图书分类管理</span>
+            </template>
+            <el-menu-item index="/addCategory">图书分类添加</el-menu-item>
+            <el-menu-item index="/categoryList">图书分类列表</el-menu-item>
+          </el-submenu>
+          <el-submenu index="book">
+            <template slot="title">
+              <i class="el-icon-notebook-1"></i>
+              <span>图书管理</span>
+            </template>
+            <el-menu-item index="/addBook">图书添加</el-menu-item>
+            <el-menu-item index="/bookList">图书列表</el-menu-item>
+          </el-submenu>
         </el-menu>
       </div>
 
@@ -80,7 +97,7 @@ export default {
   name: 'Layout',
   data() {
     return {
-      admin: Cookies.get('admin')? JSON.parse(Cookies.get('admin')) : {},
+      admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
       tableData: [],
       total: 0,
       params: {
