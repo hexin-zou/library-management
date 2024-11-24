@@ -58,7 +58,8 @@ public class BookController {
     public void download(@PathVariable String flag, @RequestParam(required = false) String play, HttpServletResponse response) {
         OutputStream os;
         List<String> fileNames = FileUtil.listFileNames(BASE_FILE_PATH);
-        String fileName = fileNames.stream().filter(name -> name.contains(flag)).findAny().orElse(""); //  System.currentTimeMillis() + originalFilename
+        String fileName = fileNames.stream().filter(name -> name.contains(flag)).findAny().orElse("");
+        //  System.currentTimeMillis() + originalFilename
         try {
             if (StrUtil.isNotEmpty(fileName)) {
                 String realName = fileName.substring(fileName.indexOf("_") + 1);

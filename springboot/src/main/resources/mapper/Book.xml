@@ -11,14 +11,14 @@
                 name like concat('%', #{ name }, '%')
             </if>
             <if test="bookNo != null and bookNo != ''">
-                and book_no = #{bookNo}
+                and bookNo = #{bookNo}
             </if>
         </where>
         order by id desc
     </select>
 
     <insert id="save">
-        insert into book(name, description, publish_date, author, publisher, category, book_no, cover, score, nums)
+        insert into book(name, description, publish_date, author, publisher, category, bookNo, cover, score, nums)
         values(#{name}, #{description}, #{publishDate}, #{author}, #{publisher}, #{category}, #{bookNo}, #{cover}, #{score}, #{nums})
     </insert>
 
@@ -30,7 +30,7 @@
             author       = #{author},
             publisher    = #{publisher},
             category     = #{category},
-            book_no      = #{bookNo},
+            bookNo      = #{bookNo},
             cover        = #{cover},
             score        = #{score},
             nums         = #{nums},
@@ -39,7 +39,7 @@
     </update>
 
     <update id="updateNumByNo">
-        update book set nums = nums + 1 where book_no = #{bookNo}
+        update book set nums = nums + 1 where bookNo = #{bookNo}
     </update>
 
     <delete id="deleteById">
@@ -54,6 +54,6 @@
         select * from book where id = #{id}
     </select>
     <select id="getByNo" resultType="com.example.springboot.entity.Book">
-        select * from book where book_no = #{bookNo}
+        select * from book where bookNo = #{bookNo}
     </select>
 </mapper>

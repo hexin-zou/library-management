@@ -19,7 +19,7 @@ public interface UserMapper {
 
     User getById(Integer id);
 
-    void update(User user);
+    void updateById(User user);
 
     void deleteById(Integer id);
 

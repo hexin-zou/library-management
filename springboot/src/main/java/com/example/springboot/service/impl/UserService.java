@@ -48,6 +48,8 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
+        user.setStatus(true);
+        user.setUpdatetime(new Date());
         User existingUser = userMapper.getByUsername(user.getUsername());
         if (existingUser != null && existingUser.getUsername().equals(user.getUsername())) {
             throw new ServiceException("用户名已存在");
@@ -68,7 +70,7 @@ public class UserService implements IUserService {
         Date date = new Date();
         user.setUsername(DateUtil.format(date,"yyyyMMdd") + Math.abs(IdUtil.fastSimpleUUID().hashCode()));
         user.setUpdatetime(new Date());
-        userMapper.update(user);
+        userMapper.updateById(user);
     }
 
     @Override

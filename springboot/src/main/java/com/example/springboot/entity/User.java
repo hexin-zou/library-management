@@ -3,6 +3,7 @@ package com.example.springboot.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.beans.Transient;
 import java.util.Date;
 
 @Data
@@ -11,6 +12,8 @@ public class User {
     private String name;
     private String username;
     private Integer age;
+    private Integer account;
+    private Integer score;
     private String sex;
     private String phone;
     private String address;
@@ -19,5 +22,5 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updatetime;
     private boolean status;
+
 }
-//User是一个实体类，用于代表数据库中的数据模型
