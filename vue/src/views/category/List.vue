@@ -119,6 +119,7 @@ export default {
         name: ''
       }
       this.load()
+      this.$notify.success('重置成功')
     },
     handleCurrentChange(pageNum) {
       // 点击分页按钮触发分页

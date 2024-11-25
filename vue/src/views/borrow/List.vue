@@ -9,6 +9,7 @@
     </div>
 
     <el-table :data="tableData" stripe row-key="id"  default-expand-all>
+      <el-table-column type="selection" width="60"></el-table-column>
       <el-table-column prop="bookName" label="图书名称"></el-table-column>
       <el-table-column prop="bookNo" label="图书标准码"></el-table-column>
       <el-table-column prop="userNo" label="会员码"></el-table-column>
@@ -105,6 +106,7 @@ export default {
         userName: ''
       }
       this.load()
+      this.$notify.success('重置成功')
     },
     handleCurrentChange(pageNum) {
       // 点击分页按钮触发分页
