@@ -5,9 +5,9 @@
       <el-form-item label="姓名" style="margin-left: 100px;margin-top: 20px" prop="name">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
       </el-form-item>
-      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px" prop="username">
-        <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
-      </el-form-item>
+<!--      <el-form-item label="用户名" style="margin-left: 100px;margin-top: 20px" prop="username">-->
+<!--        <el-input v-model="form.username" placeholder="请输入用户名"></el-input>-->
+<!--      </el-form-item>-->
       <el-form-item label="年龄" style="margin-left: 100px;margin-top: 20px" prop="age">
         <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
       </el-form-item>

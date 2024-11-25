@@ -48,6 +48,7 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
+        user.setAccount(60);
         user.setStatus(true);
         user.setUpdatetime(new Date());
         User existingUser = userMapper.getByUsername(user.getUsername());
