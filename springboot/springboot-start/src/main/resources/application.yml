@@ -1,0 +1,14 @@
+server:       # 服务器配置
+  port: ${SERVER_PORT:9090}
+spring:           # Spring配置  数据库配置
+  application:
+    name: ${pom.parent.artifactId}
+  datasource:     # 数据源配置
+    driver-class-name: @DATASOURCE-DRIVER-CLASS-NAME@               # 数据库驱动
+    url: jdbc:@DATASOURCE-PLATFORM@://@DATASOURCE-HOST@:@DATASOURCE-PORT@/@DATASOURCE-DB@?@DATASOURCE-PARAM@  # 数据库地址
+    username: @DATASOURCE-USERNAME@
+    password: @DATASOURCE-PASSWORD@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
